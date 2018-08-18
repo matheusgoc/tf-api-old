@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Database\Seeder;
 
 class UsersSeeder extends Seeder
@@ -11,7 +12,7 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        $user = new \App\User();
+        $user = new User();
         $user->name = 'Matheus Câmara';
         $user->email = 'matheus.goc@gmail.com';
         $user->password = bcrypt('video');
