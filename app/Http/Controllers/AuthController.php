@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Models\Role;
+use Illuminate\Http\Request;
+
 class AuthController extends Controller
 {
+    const REALM_ADMIN = 'admin';
+    const REALM_STORE = 'store';
+
     /**
      * Create a new AuthController instance.
      *
@@ -19,15 +26,27 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    public function login(Request $request)
     {
-        $credentials = request(['email', 'password']);
+        $credentials = $request->only('email', 'password');
+        $token = auth()->attempt($credentials);
 
-        if ($token = auth()->attempt($credentials)) {
-            return $this->respondWithToken($token);
+        $isAuthorized = false;
+        if ($token) {
+
+            $realm = $request->get('realm', self::REALM_STORE);
+            $level = auth()->user()->level;
+            switch ($realm) {
+
+                case self::REALM_ADMIN: $isAuthorized = ($level >= Role::STAFF_LEVEL); break;
+                case self::REALM_STORE: $isAuthorized = ($level >= Role::CUSTOMER_LEVEL); break;
+                default: $isAuthorized = false;
+            }
         }
 
-        return response()->json(['error' => 'Unauthorized'], 401);
+        return ($isAuthorized)?
+            $this->respondWithToken($token) :
+            response()->json(['error' => 'Unauthorized'], 401);
     }
 
     /**

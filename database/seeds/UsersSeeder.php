@@ -1,6 +1,7 @@
 <?php
 
-use App\User;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class UsersSeeder extends Seeder
@@ -17,5 +18,6 @@ class UsersSeeder extends Seeder
         $user->email = 'matheus.goc@gmail.com';
         $user->password = bcrypt('video');
         $user->save();
+        $user->roles()->attach(Role::MASTER);
     }
 }

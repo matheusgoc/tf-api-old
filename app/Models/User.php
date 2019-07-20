@@ -47,4 +47,44 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    /**
+     * Retrieve user's roles
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+
+    public function isMaster()
+    {
+        return $this->checkRole(Role::MASTER);
+    }
+
+    public function isAdmin()
+    {
+        return $this->checkRole(Role::ADMIN);
+    }
+
+    public function isStaff()
+    {
+        return $this->checkRole(Role::STAFF);
+    }
+
+    public function isCustomer()
+    {
+        return $this->checkRole(Role::CUSTOMER);
+    }
+
+    private function checkRole($roleId)
+    {
+        return $this->roles()->where('roles.id', $roleId)->exists();
+    }
+
+    public function getLevelAttribute()
+    {
+        return $this->roles()->max('level');
+    }
 }
