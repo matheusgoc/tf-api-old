@@ -20,7 +20,8 @@ class CreateRoleUserTable extends Migration
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('role_id')->references('id')->on('roles');
-            $table->unique(['role_id', 'user_id']);
+            $table->unique(['role_id', 'user_id', 'deleted_at']);
+            $table->softDeletes();
         });
     }
 

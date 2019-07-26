@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRolesTable extends Migration
+class CreateCountriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,23 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->char('id', 2)->primary();
-            $table->string('name', 20);
-            $table->string('description', 100)->nullable();
-            $table->tinyInteger('level')->default(0);
+        Schema::create('countries', function (Blueprint $table) {
+            $table->char('id', 3)->primary();
+            $table->string('name', 60);
+            $table->string('ddi', 3);
             $table->timestamps();
             $table->softDeletes();
         });
     }
 
     /**
+     *
      * Reverse the migrations.
      *
      * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('countries');
     }
 }

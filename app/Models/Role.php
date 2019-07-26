@@ -3,9 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Role Entity
+ *
+ * @property $id
+ * @property $name
+ * @property $description
+ * @property $level
+ * @property $create_at
+ * @property $updated_at
+ * @property $deleted_at
+ * @package App\Models
+ */
 class Role extends Model
 {
+    use SoftDeletes;
+
     const MASTER = 'MA';
     const ADMIN = 'AD';
     const STAFF = 'ST';

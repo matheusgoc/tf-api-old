@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,9 @@ Route::group(['prefix' => 'auth'], function (Router $router) {
     $router->get('me', 'AuthController@me');
 });
 
-Route::group(['middleware'=>'auth:api'], function($router) {
+Route::apiResource('customer', 'CustomerController');
+Route::post('user/{user}/customer', 'CustomerController@storeByUser');
 
+Route::group(['middleware'=>'auth:api'], function($router) {
 
 });

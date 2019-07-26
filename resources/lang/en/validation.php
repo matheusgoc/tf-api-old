@@ -20,6 +20,7 @@ return [
     'alpha'                => 'The :attribute may only contain letters.',
     'alpha_dash'           => 'The :attribute may only contain letters, numbers, dashes and underscores.',
     'alpha_num'            => 'The :attribute may only contain letters and numbers.',
+    'alpha_space'          => 'The :attribute may only contain letters and spaces.',
     'array'                => 'The :attribute must be an array.',
     'before'               => 'The :attribute must be a date before :date.',
     'before_or_equal'      => 'The :attribute must be a date before or equal to :date.',
@@ -112,6 +113,7 @@ return [
     'unique'               => 'The :attribute has already been taken.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
+
 
     /*
     |--------------------------------------------------------------------------

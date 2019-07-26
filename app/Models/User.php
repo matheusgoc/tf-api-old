@@ -2,13 +2,29 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+/**
+ * User Entity
+ *
+ * @property $id
+ * @property $name
+ * @property $email
+ * @property $password
+ * @property $roles
+ * @property Address $address
+ * @property $checked_at
+ * @property $create_at
+ * @property $updated_at
+ * @property $deleted_at
+ * @package App\Models
+ */
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +43,8 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected $dates = ['checked_at'];
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
@@ -49,7 +67,7 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * Retrieve user's roles
+     * Retrieve roles
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -86,5 +104,16 @@ class User extends Authenticatable implements JWTSubject
     public function getLevelAttribute()
     {
         return $this->roles()->max('level');
+    }
+
+    public function address()
+    {
+        return $this->hasOne(Address::class)
+            ->where('type', Address::TYPE_BILLING)->limit(1);
+    }
+
+    public function customer() {
+
+        return $this->hasOne(Customer::class);
     }
 }
