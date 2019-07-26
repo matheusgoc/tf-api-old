@@ -27,6 +27,7 @@ class CustomerService
                 'gender'
             ])
             ->join('users', 'customers.user_id', '=', 'users.id')
+            ->whereNull('customers.deleted_at')
             ->paginate();
     }
 
@@ -129,6 +130,7 @@ class CustomerService
         });
 
         return $customer
+            ->fresh()
             ->load('address')
             ->append(['name', 'email']);
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\User;
 use App\Services\CustomerService;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
@@ -32,6 +33,7 @@ class CustomerController extends Controller
     public function __construct(CustomerService $service)
     {
         $this->middleware('auth:api', ['except' => ['store']]);
+        $this->authorizeResource(Customer::class, 'customer');
         $this->service = $service;
     }
 
@@ -39,9 +41,12 @@ class CustomerController extends Controller
      * List users
      *
      * @return Response
+     * @throws AuthorizationException
      */
     public function index()
     {
+        $this->authorize('viewAny', Customer::class);
+
         $customers = $this->service->getAll();
 
         return response($customers);
@@ -77,6 +82,8 @@ class CustomerController extends Controller
      */
     public function storeByUser(Request $request, User $user)
     {
+        $this->authorize('createByUser', [Customer::class, $user->id]);
+
         $request->validate(array_merge($this->validation, [
             'email' => ['required', 'email', 'max:200',
                 Rule::unique('users')->ignore($user->id)

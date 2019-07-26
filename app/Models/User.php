@@ -16,6 +16,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property $password
  * @property $roles
  * @property Address $address
+ * @property $level
  * @property $checked_at
  * @property $create_at
  * @property $updated_at
@@ -44,7 +45,9 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
-    protected $dates = ['checked_at'];
+    protected $dates = [
+        'checked_at'
+    ];
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
