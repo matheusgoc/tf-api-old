@@ -11,6 +11,11 @@ use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
 use Throwable;
 
+/**
+ * Customer Controller
+ *
+ * @package App\Http\Controllers
+ */
 class CustomerController extends Controller
 {
 
@@ -67,13 +72,13 @@ class CustomerController extends Controller
             'password_confirmation' => 'required|same:password',
         ]));
 
-        $customer = $this->service->create($request);
+        $customer = $this->service->create($request->all());
 
         return response($customer, 201);
     }
 
     /**
-     * Generate a new customer for a given user
+     * Generate new customer for a given user
      *
      * @param Request $request
      * @param User $user
@@ -90,7 +95,7 @@ class CustomerController extends Controller
             ]
         ]));
 
-        $customer = $this->service->create($request, $user);
+        $customer = $this->service->create($request->all(), $user);
 
         return response($customer, 201);
     }
@@ -107,7 +112,7 @@ class CustomerController extends Controller
     }
 
     /**
-     * Update customer
+     * Update a customer
      *
      * @param  Request  $request
      * @param  Customer  $customer
@@ -122,13 +127,13 @@ class CustomerController extends Controller
             ]
         ]));
 
-        $this->service->update($request, $customer);
+        $this->service->update($request->all(), $customer);
 
         return response($customer);
     }
 
     /**
-     * Remove customer
+     * Remove a customer
      *
      * @param Customer $customer
      * @return Response

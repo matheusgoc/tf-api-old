@@ -16,12 +16,12 @@ class CreateCustomersTable extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->string('document', 20)->nullable();
-            $table->date('birthday')->nullable();
-            $table->char('gender', '1')->nullable();
-            $table->string('phone', 20)->nullable();
-            $table->boolean('news')->nullable();
-            $table->boolean('terms')->nullable();
+            $table->string('document', 20);
+            $table->date('birthday');
+            $table->char('gender', '1');
+            $table->string('phone', 20);
+            $table->boolean('news');
+            $table->boolean('terms');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users');

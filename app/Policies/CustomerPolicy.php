@@ -7,6 +7,11 @@ use App\Models\User;
 use App\Models\Customer;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
+/**
+ * Customer Policy
+ *
+ * @package App\Policies
+ */
 class CustomerPolicy
 {
     use HandlesAuthorization;
@@ -37,9 +42,10 @@ class CustomerPolicy
     /**
      * Determine whether the user can create customers.
      *
-     * @return mixed
+     * @param User|null $user
+     * @return bool
      */
-    public function create()
+    public function create(?User $user)
     {
         return true;
     }

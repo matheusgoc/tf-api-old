@@ -8,13 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Role Entity
  *
- * @property $id
- * @property $name
- * @property $description
- * @property $level
- * @property $create_at
- * @property $updated_at
- * @property $deleted_at
  * @package App\Models
  */
 class Role extends Model
@@ -33,7 +26,8 @@ class Role extends Model
 
     public $incrementing = false;
 
-    public static function getLevelByRole($role) {
+    public static function getLevelByRole($role)
+    {
         $level = 0;
         switch ($role) {
             case self::MASTER: $level = self::MASTER_LEVEL; break;
@@ -45,11 +39,6 @@ class Role extends Model
         return $level;
     }
 
-    /**
-     * Retrieve users associate with the role
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
     public function users()
     {
         return $this->belongsToMany(User::class)->withTimestamps();

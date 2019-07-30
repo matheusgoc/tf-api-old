@@ -10,37 +10,16 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 /**
  * User Entity
  *
- * @property $id
- * @property $name
- * @property $email
- * @property $password
- * @property $roles
- * @property Address $address
- * @property $level
- * @property $checked_at
- * @property $create_at
- * @property $updated_at
- * @property $deleted_at
  * @package App\Models
  */
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name', 'email', 'password',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
@@ -69,11 +48,6 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    /**
-     * Retrieve roles
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
     public function roles()
     {
         return $this->belongsToMany(Role::class)->withTimestamps();
