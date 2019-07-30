@@ -18,7 +18,7 @@ class CreateAddressesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->char('country_id', 3);
-            $table->char('type', 1)->default(Address::TYPE_BILLING);
+            $table->char('type', 2)->default(Address::TYPE_BILLING);
             $table->string('zip', 10);
             $table->string('address', 200);
             $table->string('number', 6);

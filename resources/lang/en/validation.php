@@ -114,6 +114,9 @@ return [
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
 
+    // Custom messages
+    'user_level'    => 'This action is unauthorized.',
+    'unique_agent'  => 'The agent has already been registered.',
 
     /*
     |--------------------------------------------------------------------------

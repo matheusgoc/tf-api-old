@@ -31,7 +31,19 @@ class Role extends Model
     const STAFF_LEVEL = 20;
     const CUSTOMER_LEVEL = 10;
 
-    public $timestamps = false;
+    public $incrementing = false;
+
+    public static function getLevelByRole($role) {
+        $level = 0;
+        switch ($role) {
+            case self::MASTER: $level = self::MASTER_LEVEL; break;
+            case self::ADMIN: $level = self::ADMIN_LEVEL; break;
+            case self::STAFF: $level = self::STAFF_LEVEL; break;
+            case self::CUSTOMER: $level = self::CUSTOMER_LEVEL; break;
+        }
+
+        return $level;
+    }
 
     /**
      * Retrieve users associate with the role
@@ -42,4 +54,6 @@ class Role extends Model
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
+
+
 }

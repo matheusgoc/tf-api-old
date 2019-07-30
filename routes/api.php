@@ -27,4 +27,5 @@ Route::post('user/{user}/customer', 'CustomerController@storeByUser');
 
 Route::group(['middleware'=>'auth:api'], function($router) {
 
+    Route::apiResource('agent', 'AgentController');
 });
