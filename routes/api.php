@@ -25,7 +25,10 @@ Route::group(['prefix' => 'auth'], function (Router $router) {
 Route::apiResource('customer', 'CustomerController');
 Route::post('user/{user}/customer', 'CustomerController@storeByUser');
 
-Route::group(['middleware'=>'auth:api'], function($router) {
+Route::group(['middleware'=>'auth:api'], function(Router $router) {
 
-    Route::apiResource('agent', 'AgentController');
+    $router->apiResource('agent', 'AgentController');
+    $router->apiResource('image', 'ImageController')->except(['update', 'destroy']);
+    $router->post('image/{image}', 'ImageController@update');
+    $router->delete('image/{ids}', 'ImageController@destroy');
 });

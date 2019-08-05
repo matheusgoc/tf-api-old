@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Models\Agent;
 use App\Models\Customer;
+use App\Models\Image;
 use App\Policies\AgentPolicy;
 use App\Policies\CustomerPolicy;
+use App\Policies\ImagePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -17,7 +19,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Customer::class => CustomerPolicy::class,
-        Agent::class => AgentPolicy::class
+        Agent::class => AgentPolicy::class,
+        Image::class => ImagePolicy::class
     ];
 
     /**
