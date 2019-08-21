@@ -28,7 +28,10 @@ Route::post('user/{user}/customer', 'CustomerController@storeByUser');
 Route::group(['middleware'=>'auth:api'], function(Router $router) {
 
     $router->apiResource('agent', 'AgentController');
+
     $router->apiResource('image', 'ImageController')->except(['update', 'destroy']);
     $router->post('image/{image}', 'ImageController@update');
     $router->delete('image/{ids}', 'ImageController@destroy');
+
+    $router->apiResource('category', 'CategoryController');
 });
